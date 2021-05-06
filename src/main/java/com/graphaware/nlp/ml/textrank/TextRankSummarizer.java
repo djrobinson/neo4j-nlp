@@ -19,6 +19,7 @@ import static com.graphaware.nlp.util.TypeConverter.*;
 
 import com.graphaware.nlp.ml.pagerank.CoOccurrenceItem;
 import com.graphaware.nlp.ml.pagerank.PageRank;
+import com.graphaware.nlp.annotation.NLPSummarizer;
 import com.graphaware.nlp.summatization.Summarizer;
 import org.neo4j.graphdb.*;
 import org.neo4j.logging.Log;
@@ -29,6 +30,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+@NLPSummarizer(name = "TextRank")
 public class TextRankSummarizer implements Summarizer {
 
     private static final List<String> DEFAULT_ADMITTED_POS = Arrays.asList("NN", "NNS", "NNP", "NNPS", "VB", "VBG", "VBD", "VBN", "VBP", "VBZ", "JJ", "JJR", "JJS");
@@ -69,7 +71,7 @@ public class TextRankSummarizer implements Summarizer {
         Label keywordLabel;
         Node annotatedText = (Node) params.getOrDefault(PARAMETER_ANNOTATED_NODE, null);
         if (annotatedText == null) {
-            throw new RuntimeException("Missing parameter " + PARAMETER_ANNOTATED_NODE);
+            throw new RuntimeException("Missing parameter " + PARAMETER_ANNOTATED_NODE + params.toString());
         }
         Set<String> stopWords = (Set<String>) params.getOrDefault(PARAMETER_STOP_WORDS, DEFAULT_STOP_WORDS_MEDIUM);
         List<String> admittedPOSs = (List<String>) params.getOrDefault(PARAMETER_ADMITTED_POSS, DEFAULT_ADMITTED_POS);

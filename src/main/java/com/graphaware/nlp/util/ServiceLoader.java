@@ -110,6 +110,7 @@ public class ServiceLoader {
     }
 
     private static <T, A extends Annotation> Map<String, Class<T>> loadClassByAnnotation(Class<A> annotation) {
+        LOG.info("Annotation to load: " + annotation);
         if (reflections == null) {
             loadReflections("com.graphaware");
         }

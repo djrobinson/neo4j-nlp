@@ -40,6 +40,7 @@ public class SummarizationProcedure extends AbstractDSL {
     @Description("Summarizartion procedure")
     public Stream<SingleResult> summarizeText(@Name("textRankRequest") Map<String, Object> textRankRequest) {
         try {
+            LOG.info("SANITY CHECK FOR SUMMARY");
             SummaryRequest request = SummaryRequest.fromMap(textRankRequest);
             boolean summarized = getNLPManager().summarize(request);
             return Stream.of(summarized ? SingleResult.success() : SingleResult.fail());

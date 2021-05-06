@@ -100,6 +100,7 @@ public final class NLPManager {
     }
 
     public void init(GraphDatabaseService database, DynamicConfiguration configuration) {
+        LOG.info("INITIALIZING NLP MANAGER");
         if (initialized) {
             return;
         }
@@ -357,10 +358,13 @@ public final class NLPManager {
     }
 
     private void loadSummarizers() {
+        LOG.info("LOADING SUMMARIZERS");
         Map<String, Summarizer> extensionMap = ServiceLoader.loadInstances(NLPSummarizer.class);
         extensionMap.keySet().forEach(k -> {
+
             Summarizer extension = extensionMap.get(k);
             extension.setDatabase(database);
+            LOG.info("CREATING SUMMARIZER: " + extension.getType());
             summarizers.put(extension.getType(), extension);
         });
     }

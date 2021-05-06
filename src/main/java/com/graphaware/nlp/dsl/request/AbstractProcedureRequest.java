@@ -31,7 +31,7 @@ public abstract class AbstractProcedureRequest implements ProcedureRequest {
     protected void validateRequestHasMandatoryKeys(List<String> keys, Map<String, Object> map) {
         keys.forEach(key -> {
             if (!map.containsKey(key)) {
-                throw new RuntimeException(String.format("Missing key '%s'", key));
+                throw new RuntimeException(String.format("Missing key '%s' '%s", key, map));
             }
         });
     }
